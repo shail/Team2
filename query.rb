@@ -7,12 +7,12 @@ class Query
   end
   
   def self.from_email(email)
-    if email.to.index("twitterbot")
-      my_query = TwitterQuery.new(email.subject)    
+    my_query = if email.to.index("twitterbot")
+      TwitterQuery.new(email.subject)    
     elsif email.to.index("weatherbot")
-        my_query = WeatherQuery.new(email.subject)    
+      WeatherQuery.new(email.subject)    
     else
-      my_query = self.new(email.subject)    
+      self.new(email.subject)    
     end
   end
   

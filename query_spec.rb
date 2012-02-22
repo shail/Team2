@@ -5,14 +5,14 @@ describe Query do
     Query
   end
   
-  describe "#from_email" do
+  describe ".from_email" do
     before(:each) do
       @email = double('email')
       @email.stub!(:subject).and_return("britney spears")
       @email.stub!(:to).and_return("twitterbot@devbootcamp.com")
     end
     
-    it "expects an email parameter and returns an query instance" do
+    it "expects an email parameter and returns a query instance" do
       my_query = Query.from_email(@email)
       my_query.should be_a_kind_of Query
     end
