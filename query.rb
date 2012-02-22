@@ -1,3 +1,6 @@
+require 'twitter'
+require 'barometer'
+
 class Query
 
   attr_accessor :search_term
@@ -15,15 +18,20 @@ class Query
       self.new(email.subject)    
     end
   end
-  
-  
 end
 
 
 class TwitterQuery < Query
+  def self.search(search_term)
+    my_search = Twitter.search(search_term)
+  end
 end
 
 class WeatherQuery < Query
+  def self.search(search_term)
+    barometer = Barometer.new(search_term)
+    my_search = barometer.measure
+  end
 end
 
 

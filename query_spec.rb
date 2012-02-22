@@ -1,4 +1,6 @@
 require './query.rb'
+require 'twitter'
+require 'barometer'
 
 describe Query do
   it "exists" do
@@ -33,5 +35,32 @@ describe Query do
       my_query.should be_an_instance_of WeatherQuery
     end
   end
+end
+
+describe TwitterQuery do
+  it 'exists' do
+    TwitterQuery
+  end
   
+  describe ".search" do
+    it "searches for search term and returns an array of results" do
+      search_term = 'search term'
+      my_search = TwitterQuery.search(search_term)
+      my_search.should be_a_kind_of Array
+    end
+  end
+end
+
+describe WeatherQuery do
+  it 'exists' do
+    WeatherQuery
+  end
+  
+  describe ".search" do
+   it "searches for search term and returns an array of results" do
+      search_term = "94105"
+      my_search = WeatherQuery.search(search_term)
+      my_search.should be_a_kind_of Barometer::Weather
+    end
+  end
 end
