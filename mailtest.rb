@@ -7,7 +7,7 @@ def fetch_all
       :user_name  => 'dbcteam2@gmail.com',
       :password   => 'emailbot',
       :address    => 'pop.gmail.com',
-      :port       => 995,
+      :port       => 9952,
       :enable_ssl => true
     end
   @emails = Mail.all

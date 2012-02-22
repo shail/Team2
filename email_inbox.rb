@@ -14,15 +14,15 @@ class EmailInbox
                   @port = @config_file['port']
             @enable_ssl = @config_file["enable_ssl"]        
       else
-        raise "Bad Config"
+        raise "Bad config file."
     end
 
   end
   
    def fetch_all
-     my_mail_wrapper = MailWrapper.new(@user_name, @password, @address, @port, @enable_ssl)
-     return false unless my_mail_wrapper
-     my_mail_wrapper.get_all 
+     mail_connection = MailWrapper.new(@user_name, @password, @address, @port, @enable_ssl)
+     return false unless mail_connection
+     mail_connection.get_all
    end
 
 end
