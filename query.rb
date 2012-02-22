@@ -4,9 +4,18 @@ require 'barometer'
 class Query
 
   attr_accessor :search_term
+  attr_reader :response
   
   def initialize(search_term)
     @search_term = search_term
+  end
+  
+  def execute()
+    # Uses internal @search_term to run a query    
+    # Default behavior: no results
+    # Implement in subclasses
+    
+    @response = ""
   end
   
   def self.from_email(email)
@@ -22,40 +31,14 @@ end
 
 
 class TwitterQuery < Query
-  def self.search(search_term)
-    my_search = Twitter.search(search_term)
+  def execute
+    @twitter_results = Twitter.search(search_term)
   end
 end
 
 class WeatherQuery < Query
-  def self.search(search_term)
+  def execute
     barometer = Barometer.new(search_term)
-    my_search = barometer.measure
+    @weather_results = barometer.measure 
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#  Query Object
-##  Instantiated from Email -- passed an "bot" to direct to ; passed search terms - factory method from_email
-##  Twitter / Weather Query
-##  Instantiates Results object-- passing a string to Results
