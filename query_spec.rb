@@ -24,12 +24,12 @@ describe Query do
       my_query.search_term.should eq "britney spears"
     end
     
-    it "should return a twitter query if to address is twitterbot(@whatever)" do
+    it "returns a twitter query if to address is twitterbot(@whatever)" do
       my_query = Query.from_email(@email)
       my_query.should be_an_instance_of TwitterQuery
     end
     
-    it "should return a weather query if to address is weatherbot(@whatever)" do
+    it "returns a weather query if to address is weatherbot(@whatever)" do
       @email.stub!(:to).and_return("weatherbot@devbootcamp.com")
       my_query = Query.from_email(@email)
       my_query.should be_an_instance_of WeatherQuery
@@ -42,10 +42,11 @@ describe TwitterQuery do
     TwitterQuery
   end
   
-  describe ".search" do
+  describe "#execute" do
     it "searches for search term and returns an array of results" do
       search_term = 'search term'
-      my_search = TwitterQuery.search(search_term)
+      t_query = TwitterQuery.new(search_term)
+      my_search = t_query.execute
       my_search.should be_a_kind_of Array
     end
   end
@@ -56,10 +57,11 @@ describe WeatherQuery do
     WeatherQuery
   end
   
-  describe ".search" do
-   it "searches for search term and returns an array of results" do
-      search_term = "94105"
-      my_search = WeatherQuery.search(search_term)
+  describe "#execute" do
+    it "searches for search term and returns an array of results" do
+      search_term = "90210"
+      w_query = WeatherQuery.new(search_term)
+      my_search = w_query.execute
       my_search.should be_a_kind_of Barometer::Weather
     end
   end
