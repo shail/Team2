@@ -1,4 +1,7 @@
 require 'yaml'
+require 'mail'
+require './mail_wrapper'
+
 class EmailInbox
   
   def initialize(config_file)
@@ -9,39 +12,21 @@ class EmailInbox
               @password = @config_file["password"]
                @address = @config_file["address"]
                   @port = @config_file['port']
-            @enable_ssl = @config_file["enable_ssl"]
-         
-         
-
-      set_email_retriever
-      
-    else
-      raise "Bad Config"
+            @enable_ssl = @config_file["enable_ssl"]        
+      else
+        raise "Bad config file."
     end
 
   end
   
-  # def fetch_all
-  #   my_mail = Mail.new
-  #   @emails = my_mail.all
-  # end
-  
-  private
+   def fetch_all
+     mail_connection = MailWrapper.new(@user_name, @password, @address, @port, @enable_ssl)
+     return false unless mail_connection
+     mail_connection.get_all
+   end
 
-           def set_email_retriever
-             
-             Mail.defaults do
-               retriever_method :pop3,
-                 :user_name  => @user_name,
-                 :password   => @password,
-                 :address    => @address,
-                 :port       => @port,
-                 :enable_ssl => @enable_ssl
-               end
-           end
-  
 end
 
-inbox = EmailInbox.new('config.yml')
-all_emails = inbox.fetch_all
+email = EmailInbox.new('config.yml')
+all_emails = email.fetch_all
 puts all_emails

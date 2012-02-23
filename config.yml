@@ -1,0 +1,6 @@
+---
+user_name: 'dbcteam2@gmail.com'
+password: 'emailbot'
+address: 'pop.gmail.com'
+port: 995
+enable_ssl: true
