@@ -1,4 +1,5 @@
 class MailWrapper
+  # need to return false if exception
 
   def initialize(username, password, address, port, enable_ssl)
     Mail.defaults do

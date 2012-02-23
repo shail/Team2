@@ -26,3 +26,7 @@ class EmailInbox
    end
 
 end
+
+email = EmailInbox.new('config.yml')
+all_emails = email.fetch_all
+puts all_emails
