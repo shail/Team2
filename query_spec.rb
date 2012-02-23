@@ -42,14 +42,15 @@ describe TwitterQuery do
     TwitterQuery
   end
   
-  describe "#execute" do
+  describe "#find_results" do
     it "searches for search term and returns an array of results" do
       search_term = 'search term'
       t_query = TwitterQuery.new(search_term)
-      my_search = t_query.execute
+      my_search = t_query.find_results
       my_search.should be_a_kind_of Array
     end
   end
+  
 end
 
 describe WeatherQuery do
@@ -57,11 +58,11 @@ describe WeatherQuery do
     WeatherQuery
   end
   
-  describe "#execute" do
+  describe "#find_results" do
     it "searches for search term and returns an array of results" do
       search_term = "90210"
       w_query = WeatherQuery.new(search_term)
-      my_search = w_query.execute
+      my_search = w_query.find_results
       my_search.should be_a_kind_of Barometer::Weather
     end
   end
