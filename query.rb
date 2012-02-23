@@ -10,35 +10,29 @@ class Query
     @search_term = search_term
   end
   
-  def execute()
-    # Uses internal @search_term to run a query    
-    # Default behavior: no results
-    # Implement in subclasses
-    
-    @response = ""
-  end
-  
   def self.from_email(email)
-    my_query = if email.to.index("twitterbot")
-      TwitterQuery.new(email.subject)    
-    elsif email.to.index("weatherbot")
-      WeatherQuery.new(email.subject)    
-    else
-      self.new(email.subject)    
-    end
+    available_queries = {
+                        "twitterbot" => TwitterQuery,
+                        "weatherbot" => WeatherQuery
+                        }
+    target_bot = email.to.split("@")[0]
+    query = available_queries[target_bot]
+    
+    my_query = email.to.index(target_bot) ? query.new(email.subject) : self.new(email.subject)
   end
 end
 
 
 class TwitterQuery < Query
-  def execute
-    @twitter_results = Twitter.search(search_term)
+  def find_results
+    twitter_results = Twitter.search(search_term)
   end
 end
 
+
 class WeatherQuery < Query
-  def execute
+  def find_results
     barometer = Barometer.new(search_term)
-    @weather_results = barometer.measure 
+    weather_results = barometer.measure 
   end
 end
