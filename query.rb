@@ -33,6 +33,27 @@ end
 class WeatherQuery < Query
   def find_results
     barometer = Barometer.new(search_term)
-    weather_results = barometer.measure 
+    weather_results = barometer.measure
   end
 end
+
+
+
+
+
+
+# Weather Return Query Class == Barometer::Measurement::Result -- g[0].class
+# Twitter Return Query Class == Twitter::Status -- results[0].class
+# 
+# 
+# 
+# 
+# my_query = Query.from_email(email)
+# results = my_query.find_results
+# 
+# results.class == 'TwitterQuery'
+# 
+# 
+# 
+# format_results = Results.new(results)
+# format_results.deliver_by_email
