@@ -25,7 +25,7 @@ end
 
 class TwitterQuery < Query
   def find_results
-    twitter_results = Twitter.search(search_term)
+    twitter_results = Twitter.search(search_term, :ppr => 10)
   end
 end
 
