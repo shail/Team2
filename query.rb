@@ -8,6 +8,7 @@ class Query
   
   def initialize(search_term)
     @search_term = search_term
+    puts @search_term
   end
   
   def self.from_email(email)
@@ -15,10 +16,9 @@ class Query
                         "twitterbot" => TwitterQuery,
                         "weatherbot" => WeatherQuery
                         }
-    target_bot = email.to.split("@")[0]
+    target_bot = email.subject
     query = available_queries[target_bot]
-    
-    my_query = email.to.index(target_bot) ? query.new(email.subject) : self.new(email.subject)
+    query.new(email.body.decoded)
   end
 end
 
@@ -33,7 +33,7 @@ end
 class WeatherQuery < Query
   def find_results
     barometer = Barometer.new(search_term)
-    weather_results = barometer.measure
+    weather_results = barometer.measure.forecast
   end
 end
 

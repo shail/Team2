@@ -5,16 +5,11 @@ class Results
                         Barometer::Measurement::Result => WeatherResults
                         }
     
-    results = available_results[unformatted_results[0].from_class]
-    
+    results = available_results[unformatted_results[0].class]
     results.new(unformatted_results) 
    
     
   end
-  def deliver_by_email
-    format_by_email
-  end
-  
 end
 
 
@@ -26,9 +21,9 @@ class TwitterResults < Results
   def format_by_email
     email_body = ''
     @unformatted_results.each do |twitter_result|
-      email_body << "User: #{twitter_result.from_user} Text: #{twitter_result.text}\n"
+      email_body << "User: #{twitter_result.from_user} Text: #{twitter_result.text}\n\n"
     end
-    email_body.strip
+    email_body
   end
 end
 
