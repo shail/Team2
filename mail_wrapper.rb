@@ -39,5 +39,5 @@ class MailWrapper
               }
             )
    
-  end
+  end   
 end
