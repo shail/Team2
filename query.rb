@@ -15,9 +15,10 @@ class Query
                         "twitterbot" => TwitterQuery,
                         "weatherbot" => WeatherQuery
                         }
-    target_bot = email.subject
+    target_bot = email.subject.strip
     query = available_queries[target_bot]
-    query.new(email.body.decoded)
+    search_query = email.body
+    query.new(search_query)
   end
 end
 
@@ -32,27 +33,6 @@ end
 class WeatherQuery < Query
   def find_results
     barometer = Barometer.new(search_term)
-    weather_results = barometer.measure.forecast
+    barometer.measure.forecast
   end
 end
-
-
-
-
-
-
-# Weather Return Query Class == Barometer::Measurement::Result -- g[0].class
-# Twitter Return Query Class == Twitter::Status -- results[0].class
-# 
-# 
-# 
-# 
-# my_query = Query.from_email(email)
-# results = my_query.find_results
-# 
-# results.class == 'TwitterQuery'
-# 
-# 
-# 
-# format_results = Results.new(results)
-# format_results.deliver_by_email
