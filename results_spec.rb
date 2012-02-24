@@ -58,7 +58,6 @@ describe WeatherResults do
       instantiated_results = WeatherResults.new(results)
       email_body = instantiated_results.format_by_email
       email_body.should be_a_kind_of String
-      puts email_body
     end
   end
 end

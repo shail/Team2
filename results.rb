@@ -5,7 +5,8 @@ class Results
                         Barometer::Measurement::Result => WeatherResults
                         }
     
-    results = available_results[unformatted_results[0].from_class]
+    results = available_results[unformatted_results[0].class]
+    return nil unless results
     results.new(unformatted_results) 
    
     

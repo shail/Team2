@@ -1,7 +1,5 @@
 require 'yaml'
-require './mail_wrapper'
-require './query'
-require './results'
+
 
 class Users
   attr_reader :user_name, :mailbox, :password
@@ -21,17 +19,3 @@ end
 
 
 #main loop code
-
-
-user = Users.new("config.yml")
-all_email_messages = user.process_mail
-
-if all_email_messages == []
-  puts "No new email"
-else
-  all_email_messages.each do |email|
-    unformated_results = Query.from_email(email).find_results
-    formatted_body_email = Results.from_query(unformated_results).format_by_email
-    user.mailbox.send_mail(user, formatted_body_email)
-end
-end

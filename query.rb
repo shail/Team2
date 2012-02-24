@@ -17,8 +17,9 @@ class Query
                         }
     target_bot = email.subject.strip
     query = available_queries[target_bot]
-    search_query = email.body
-    query.new(search_query)
+    return nil unless query
+    search_query = email.body.decoded
+    query.new(search_query) 
   end
 end
 
@@ -36,3 +37,5 @@ class WeatherQuery < Query
     barometer.measure.forecast
   end
 end
+
+
