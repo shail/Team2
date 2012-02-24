@@ -8,7 +8,6 @@ class Query
   
   def initialize(search_term)
     @search_term = search_term
-    puts @search_term
   end
   
   def self.from_email(email)

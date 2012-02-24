@@ -18,18 +18,11 @@ class MailWrapper
     end
   end
   
-  def parse_emails
-    emails = Mail.all
-    puts "No new mail" if emails == []
-    emails.map do |email| 
-     unformated_results = Query.from_email(email).find_results
-     Results.from_query(unformated_results).format_by_email
-    end
+  def fetch_all
+    Mail.all
   end
   
   def send_mail(user, body)
-    puts user.user_name
-    puts body
     
     Pony.mail(  :to => 'shailpatel2@gmail.com, adennis4@gmail.com',
               :subject => 'Bot Results',
@@ -45,6 +38,6 @@ class MailWrapper
                   :domain               => "HELO" 
               }
             )
-    puts "Mail sent!"
+   
   end
 end

@@ -1,17 +1,30 @@
 require './mail_wrapper'
 
-# describe MailWrapper do 
-#   it "should accept at least username, password, address, port, and enable_ssl" do
-#     username = double('username')
-#     password = double('password')
-#     address = double('address')
-#     port = double('port')
-#     enable_ssl = double('enable_ssl')
-#     MailWrapper.new(username, password, address, port)
-#   end
-# end
+describe MailWrapper do
+  it "exists" do
+    MailWrapper
+  end
+  
+  before :all do
+        @email_inbox = MailWrapper.new('dbcteam2@gmail.com', 'emailbot', 'pop.gmail.com', '995', true)
+      end
+  it "gets initalized with user parameters" do
 
+    @email_inbox.should be_an_instance_of MailWrapper
+  end
+  
+  describe "#send_mail" do
+    it "returns a Mail::Message object" do
+      user = double('user')
+      user.stub!(:user_name).and_return('dbcteam2@gmail.com')
+      user.stub!(:password).and_return('emailbot')
+      email = @email_inbox.send_mail(user, 'hey')
+      email.should be_an_instance_of Mail::Message
+    end
+  end
+  
+  
+  
+  
+end
 
-# MailWrapper should accept correct number of arguments (min 5)
-# MailWrapper.new should return false if bad connection
-# MailWrapper.get_all should return an empty array
