@@ -17,4 +17,10 @@ class Users
   end
 end
 
+
+#main loop code
 Users.new("config.yml").process_mail
+emails.map do |email| 
+ unformated_results = Query.from_email(email).find_results
+ Results.from_query(unformated_results).format_by_email
+end
