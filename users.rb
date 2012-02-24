@@ -1,12 +1,10 @@
 require 'yaml'
-require 'mail'
-require './mail_wrapper'
 
-class EmailInbox
+class Users
   
-  def initialize(config_file)
-    @config_file = YAML::load File.open(config_file)
-    @user = User.new(...)
+  attr_reader :user_name
+  
+  def initialize (config_file)
     if File.exist? config_file
              @user_name = @config_file["user_name"]
               @password = @config_file["password"]
@@ -16,13 +14,5 @@ class EmailInbox
       else
         raise "Bad config file."
     end
-
   end
-  
-   def fetch_all
-     mail_connection = MailWrapper.new(@user_name, @password, @address, @port, @enable_ssl)
-     return false unless mail_connection
-     mail_connection.get_all
-   end
-
 end
